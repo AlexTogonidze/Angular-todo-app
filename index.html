@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Angular ToDO List</title>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="script.js">
+    </script>
+
+    <style>
+        .container {
+            width: 40%;
+            margin: 0 auto;
+            border: 1px solid darkgray;
+            border-radius:3px;
+            margin-top: 10%;
+            padding-bottom: 25px;
+        }
+        
+        .maininput {
+            display: block;
+            margin: 0 auto;
+            padding: 8px;
+            font-size: 15px;
+            width: 70%;
+            margin-bottom: 25px;
+        }
+        
+        .removal {
+            float: right;
+            color: lightgrey;
+        }
+        
+        .removal:hover {
+            color: #3d3e3f;
+        }
+        
+        span.done-true {
+            font-style: italic;
+            color: green;
+            text-decoration: line-through;
+        }
+        
+        span[contentEditable="true"] {
+            background: lightgray;
+            padding: 3px;
+        }
+        
+        span[contentEditable="false"] {
+            background: white;
+        }
+        
+        .task {
+            padding: 10px;
+            font-size:20px;
+            border: 1px solid lightgray;
+            border-radius: 3px;
+            width: 90%;
+            margin-top: 7px;
+            
+            list-style: none;
+        }
+        
+        ::selection {
+            background: #EBF4FA;
+            /* WebKit/Blink Browsers */
+        }
+        
+        ::-moz-selection {
+            background: #EBF4FA;
+            /* Gecko Browsers */
+        }
+        
+        ::-webkit-input-placeholder {
+            /* Chrome/Opera/Safari */
+            font-style: italic;
+        }
+        
+        ::-moz-placeholder {
+            /* Firefox 19+ */
+            font-style: italic;
+        }
+        
+        :-ms-input-placeholder {
+            /* IE 10+ */
+            font-style: italic;
+        }
+        
+        :-moz-placeholder {
+            /* Firefox 18- */
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body ng-app='mainApp' ng-controller='app'>
+    <div class="container">
+        <h1 style="text-align:center;">Add a task</h1>
+        <input ng-model='task' ng-keyup="searchEnter()" type="text" class='maininput' placeholder="Type Task Name And Press Enter">
+
+        <div id='shownTasks'>
+            <ul>
+
+                <li ng-repeat='oneTask in tasks track by $index' class='task'>
+                    <input type="checkbox" ng-model='oneTask.status'>
+                    <span contenteditable="false" ng-dblclick="contentEdit(oneTask.taskMessage)" ng-keyup="enterAgain(oneTask.taskMessage)" ng-model='oneTask.taskMessage' class="done-{{oneTask.status}}">
+                   {{oneTask.taskMessage}}
+               </span>
+
+                    <a ng-click="remove(oneTask, $index)" class='removal'><i class="fa fa-times"></i></a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
